@@ -32,5 +32,17 @@ app.post("/api/notes", (req, res) => {
   res.json(notes);
 });
 
-console.log(__dirname);
+app.delete("/api/notes/:id", (req, res) => {
+  for (var i = 0; i < notes.length; i++) {
+    console.log(typeof notes[i].id);
+    console.log(typeof req.params.id);
+    if (notes[i].id == req.params.id) {
+      notes.splice(i, 1);
+      fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+      res.json(notes);
+    }
+    // console.log(notes[i]);
+  }
+});
+
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
